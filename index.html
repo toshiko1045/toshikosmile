@@ -18,8 +18,8 @@
             }
             
             async function model_predict(x){
-//                 let input_x = tf.tensor1d(x);
-                let input_x = x;
+                let input_x = tf.tensor1d(x);
+//                 let input_x = x;
                 let output_y= await model.predict(input_x);
                 let y = await output_y.data();
                 y = await Array.from(y);
