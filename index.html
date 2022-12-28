@@ -13,7 +13,7 @@
         <script>
             model_load();
             async function model_load(){
-                const model = await tf.loadLayersModel("../model/model.json");
+                const model = await tf.loadLayersModel("./model.json");
                 console.log(model.summary());
             }
             
