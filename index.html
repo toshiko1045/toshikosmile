@@ -11,11 +11,17 @@
         <div id="console">ここに表示</div>
         
         <script>
-            model_load();
-            async function model_load(){
-                const model = await tf.loadLayersModel("https://toshiko1045.github.io/toshikosmile/model.json");
-                console.log(model.summary());
+            const model = tf.loadLayersModel("https://toshiko1045.github.io/toshikosmile/model.json");
+            console.log(model.summary());
+            
+            async function model_pred(x){
+                let input_x = tf.tensor1d(x);
+                let output_y= await model.predict(input_x);
+                output_y = await output_y.data;
+                output_y = await Array.from(output_y);
+                return output_y;
             }
+                
             
             const camera_size = {w:256, h:256}; //カメラサイズを辞書で作成
             let   video       = document.createElement("video"); // <video></video>を作成
@@ -40,9 +46,8 @@
             document.getElementById("canvasPreview").appendChild(canvas);//<canvasPreview><canvas></canvas></canvasPreview>
             let ctx = canvas.getContext("2d"); //canvasを2dグラフィックを描画するようにする
             
-            function run_image(){
-                while(true){
-                    ctx.drawImage(video, 0, 0, canvas.width, canvas.height);
+            setInterval(()=>{
+                ctx.drawImage(video, 0, 0, canvas.width, canvas.height);
                     let canvas_image = ctx.getImageData(0,0,canvas.width,canvas.height);
                     // document.getElementById("console").textContent = canvas_image.data.length;
                     canvas_image_list = canvas_image.data;
@@ -57,12 +62,8 @@
                             canvas_image_list[i].push(canvas_image_list_temp[i*256+j]);
                         }
                     }
-                    document.getElementById("console").textContent = canvas_image_list[0][0].length;
-                }
-            }
-            run_image();
-//             setInterval(()=>{
-//             }, 100)
+                    document.getElementById("console").textContent = model.pred(canvas_image_list);
+            }, 100)
             
         </script>
     </body>
