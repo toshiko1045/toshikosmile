@@ -48,20 +48,20 @@
             
             setInterval(()=>{
                 ctx.drawImage(video, 0, 0, canvas.width, canvas.height);
-                    let canvas_image = ctx.getImageData(0,0,canvas.width,canvas.height);
-                    // document.getElementById("console").textContent = canvas_image.data.length;
-                    canvas_image_list = canvas_image.data;
-                    canvas_image_list_temp = [];
-                    for(let i=0;i<256*256;i++){
-                        canvas_image_list_temp.push([canvas_image_list[i*4],canvas_image_list[(i*4)+1],canvas_image_list[(i*4)+2]]); //RGBAからRGBのみ抽出
+                let canvas_image = ctx.getImageData(0,0,canvas.width,canvas.height);
+                // document.getElementById("console").textContent = canvas_image.data.length;
+                canvas_image_list = canvas_image.data;
+                canvas_image_list_temp = [];
+                for(let i=0;i<256*256;i++){
+                    canvas_image_list_temp.push([canvas_image_list[i*4],canvas_image_list[(i*4)+1],canvas_image_list[(i*4)+2]]); //RGBAからRGBのみ抽出
+                }
+                canvas_image_list = [];
+                for(let i=0;i<256;i++){//行の移動
+                    canvas_image_list.push([]);
+                    for(let j=0;j<256;j++){//列の移動
+                        canvas_image_list[i].push(canvas_image_list_temp[i*256+j]);
                     }
-                    canvas_image_list = [];
-                    for(let i=0;i<256;i++){//行の移動
-                        canvas_image_list.push([]);
-                        for(let j=0;j<256;j++){//列の移動
-                            canvas_image_list[i].push(canvas_image_list_temp[i*256+j]);
-                        }
-                    }
+                }
 //                     document.getElementById("console").textContent = model_pred(canvas_image_list);
             }, 100)
             
