@@ -17,14 +17,14 @@
 //                 console.log(model.summary());
             }
             
-            async function model_predict(x){
-                let input_x = tf.tensor1d(x);
-//                 let input_x = x;
-                let output_y= await model.predict(input_x);
-                let y = await output_y.data();
-                y = await Array.from(y);
-                return y;
-            }
+//             async function model_predict(x){
+//                 let input_x = tf.tensor1d(x);
+// //                 let input_x = x;
+//                 let output_y= await model.predict(input_x);
+//                 let y = await output_y.data();
+//                 y = await Array.from(y);
+//                 return y;
+//             }
             
             const camera_size = {w:256, h:256}; //カメラサイズを辞書で作成
             let   video       = document.createElement("video"); // <video></video>を作成
@@ -49,7 +49,7 @@
             document.getElementById("canvasPreview").appendChild(canvas);//<canvasPreview><canvas></canvas></canvasPreview>
             let ctx = canvas.getContext("2d"); //canvasを2dグラフィックを描画するようにする
             
-            async function run(){
+            setInterval(()=>{
                 ctx.drawImage(video, 0, 0, canvas.width, canvas.height);
                 let canvas_image = ctx.getImageData(0,0,canvas.width,canvas.height);
                 // document.getElementById("console").textContent = canvas_image.data.length;
@@ -66,12 +66,10 @@
                     }
                 }
                 
-                let predict_data = model_predict(canvas_image_list);
-                document.getElementById("console").textContent = predict_data;
-            }
-            while(true){
-                run();
-            }
+//                 let predict_data = model_predict(canvas_image_list);
+//                 document.getElementById("console").textContent = predict_data;
+            },100)
+         
             
         </script>
     </body>
