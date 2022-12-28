@@ -16,7 +16,7 @@
                 model.summary();
                 return model
             }
-            
+            const model = model_load();
             async function model_pred(x){
                 let input_x  = tf.tensor(x);
                 let [output_y1, output_y2] = await model.predict(input_x);
@@ -26,7 +26,7 @@
                 return output_y;
             }
    
-            const model = model_load();
+            
             const camera_size = {w:256, h:256}; //カメラサイズを辞書で作成
             let   video       = document.createElement("video"); // <video></video>を作成
             video.id = "video"; //<video id="video"></video>にする
