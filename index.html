@@ -17,13 +17,13 @@
                 return model
             }
             
-//             async function model_pred(x){
-//                 let input_x = tf.tensor(x);
-//                 let output_y= await model.predict(input_x);
-//                 output_y = await output_y.data;
-//                 output_y = await Array.from(output_y);
-//                 return output_y;
-//             }
+            async function model_pred(x){
+                let input_x  = tf.tensor(x);
+                let output_y = await model.predict(input_x);
+                output_y     = await output_y.data;
+                output_y     = await Array.from(output_y);
+                return output_y;
+            }
                 
             const model = model_load();
             const camera_size = {w:256, h:256}; //カメラサイズを辞書で作成
@@ -65,7 +65,7 @@
                         canvas_image_list[i].push(canvas_image_list_temp[i*256+j]);
                     }
                 }
-//                     document.getElementById("console").textContent = model_pred(canvas_image_list);
+                document.getElementById("console").textContent = model_pred(canvas_image_list);
             }, 100)
             
         </script>
