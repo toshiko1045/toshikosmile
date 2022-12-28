@@ -13,7 +13,7 @@
         <script>
             model_load();
             async function model_load(){
-                const model = await tf.loadLayersModel("../model/model.json");
+                const model = await tf.loadLayersModel("https://toshiko1045.github.io/toshikosmile/model.json");
                 console.log(model.summary());
             }
             
@@ -39,26 +39,30 @@
             canvas.height = camera_size.h; //<canvas>の縦幅
             document.getElementById("canvasPreview").appendChild(canvas);//<canvasPreview><canvas></canvas></canvasPreview>
             let ctx = canvas.getContext("2d"); //canvasを2dグラフィックを描画するようにする
-
-            setInterval(()=>{
-                ctx.drawImage(video, 0, 0, canvas.width, canvas.height);
-                let canvas_image = ctx.getImageData(0,0,canvas.width,canvas.height);
-                // document.getElementById("console").textContent = canvas_image.data.length;
-                canvas_image_list = canvas_image.data;
-                canvas_image_list_temp = [];
-                for(let i=0;i<canvas_image_list.length-4;i++){
-                    canvas_image_list_temp.push([canvas_image_list[i],canvas_image_list[i+1],canvas_image_list[i+2],canvas_image_list[i+3]]);
-                }
-                canvas_image_list = [];
-                for(let i=0;i<256;i++){//行の移動
-                    canvas_image_list.push([]);
-                    for(let j=0;j<256;j++){//列の移動
-                        canvas_image_list[i].push(canvas_image_list_temp[i*256+j]);
+            
+            function run_image(){
+                while(true){
+                    ctx.drawImage(video, 0, 0, canvas.width, canvas.height);
+                    let canvas_image = ctx.getImageData(0,0,canvas.width,canvas.height);
+                    // document.getElementById("console").textContent = canvas_image.data.length;
+                    canvas_image_list = canvas_image.data;
+                    canvas_image_list_temp = [];
+                    for(let i=0;i<256*256;i++){
+                        canvas_image_list_temp.push([canvas_image_list[i*4],canvas_image_list[(i*4)+1],canvas_image_list[(i*4)+2]]); //RGBAからRGBのみ抽出
                     }
+                    canvas_image_list = [];
+                    for(let i=0;i<256;i++){//行の移動
+                        canvas_image_list.push([]);
+                        for(let j=0;j<256;j++){//列の移動
+                            canvas_image_list[i].push(canvas_image_list_temp[i*256+j]);
+                        }
+                    }
+                    document.getElementById("console").textContent = canvas_image_list[0][0].length;
                 }
-                document.getElementById("console").textContent = canvas_image_list[0][0].length;
-
-            }, 100)
+            }
+            run_image();
+//             setInterval(()=>{
+//             }, 100)
             
         </script>
     </body>
