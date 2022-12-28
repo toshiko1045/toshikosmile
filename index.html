@@ -41,6 +41,9 @@
             let ctx = canvas.getContext("2d"); //canvasを2dグラフィックを描画するようにする
 
             setInterval(()=>{
+                
+            }, 100)
+            def function run(){
                 ctx.drawImage(video, 0, 0, canvas.width, canvas.height);
                 let canvas_image = ctx.getImageData(0,0,canvas.width,canvas.height);
                 // document.getElementById("console").textContent = canvas_image.data.length;
@@ -58,8 +61,10 @@
                 }
                 document.getElementById("console").textContent = canvas_image_list[0][0].length;
 
-            }, 100)
-            
+            }
+            while(true){
+                run();
+            }
         </script>
     </body>
 </html>
