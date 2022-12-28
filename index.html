@@ -17,6 +17,14 @@
                 console.log(model.summary());
             }
             
+            async function model_predict(x){
+                let input_x = tf.tensor2d(x);
+                let output_y= await model.predict(input_x);
+                let y = await output_y.data();
+                y = await Array.from(y);
+                return y;
+            }
+            
             const camera_size = {w:256, h:256}; //カメラサイズを辞書で作成
             let   video       = document.createElement("video"); // <video></video>を作成
             video.id = "video"; //<video id="video"></video>にする
@@ -46,8 +54,8 @@
                 // document.getElementById("console").textContent = canvas_image.data.length;
                 canvas_image_list = canvas_image.data;
                 canvas_image_list_temp = [];
-                for(let i=0;i<canvas_image_list.length-4;i++){
-                    canvas_image_list_temp.push([canvas_image_list[i],canvas_image_list[i+1],canvas_image_list[i+2],canvas_image_list[i+3]]);
+                for(let i=0;i<(256*256);i++){
+                    canvas_image_list_temp.push([canvas_image_list[(i*4)],canvas_image_list[(i*4)+1],canvas_image_list[(i*4)+2]]);
                 }
                 canvas_image_list = [];
                 for(let i=0;i<256;i++){//行の移動
@@ -56,7 +64,10 @@
                         canvas_image_list[i].push(canvas_image_list_temp[i*256+j]);
                     }
                 }
-                document.getElementById("console").textContent = canvas_image_list[0][0].length;
+                
+                let predict_data = model_predict(canvas_image_list);
+                document.getElementById("console").textContent = predict_data;
+                
 
             }, 100)
             
