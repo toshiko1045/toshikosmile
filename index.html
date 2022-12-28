@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="UTF-8" />
+        <title>toshi_ML</title>
+    </head>
+    <body>
+        <script src="https://cdn.jsdelivr.net/npm/@tensorflow/tfjs@1.0.0/dist/tf.min.js"></script>
+        
+        <div id="canvasPreview"></div>
+        <div id="console">ここに表示</div>
+        
+        <script>
+            model_load();
+            async function model_load(){
+                const model = await tf.loadLayersModel("../model/model.json");
+                console.log(model.summary());
+            }
+            
+            const camera_size = {w:256, h:256}; //カメラサイズを辞書で作成
+            let   video       = document.createElement("video"); // <video></video>を作成
+            video.id = "video"; //<video id="video"></video>にする
+            video.width = camera_size.w; //<video id="video"></video>の横幅
+            video.height = camera_size.h; //<video id="video"></video>の縦幅
+            video.autoplay = true; //自動で再生開始
+            let media = navigator.mediaDevices.getUserMedia({
+                audio:false,
+                video:{
+                    width:camera_size.w,
+                    height:camera_size.h
+                }
+            }).then(function(stream){
+                video.srcObject=stream;
+            });
+            
+            let canvas = document.createElement("canvas");//<canvas></canvas>を作成
+            canvas.id = "canvas"; //<canvas id="canvas"></canvas>
+            canvas.width = camera_size.w; //<canvas>の横幅
+            canvas.height = camera_size.h; //<canvas>の縦幅
+            document.getElementById("canvasPreview").appendChild(canvas);//<canvasPreview><canvas></canvas></canvasPreview>
+            let ctx = canvas.getContext("2d"); //canvasを2dグラフィックを描画するようにする
+
+            setInterval(()=>{
+                ctx.drawImage(video, 0, 0, canvas.width, canvas.height);
+                let canvas_image = ctx.getImageData(0,0,canvas.width,canvas.height);
+                // document.getElementById("console").textContent = canvas_image.data.length;
+                canvas_image_list = canvas_image.data;
+                canvas_image_list_temp = [];
+                for(let i=0;i<canvas_image_list.length-4;i++){
+                    canvas_image_list_temp.push([canvas_image_list[i],canvas_image_list[i+1],canvas_image_list[i+2],canvas_image_list[i+3]]);
+                }
+                canvas_image_list = [];
+                for(let i=0;i<256;i++){//行の移動
+                    canvas_image_list.push([]);
+                    for(let j=0;j<256;j++){//列の移動
+                        canvas_image_list[i].push(canvas_image_list_temp[i*256+j]);
+                    }
+                }
+                document.getElementById("console").textContent = canvas_image_list[0][0].length;
+
+            }, 100)
+            
+        </script>
+    </body>
+</html>
