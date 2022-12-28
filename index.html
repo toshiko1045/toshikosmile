@@ -19,17 +19,13 @@
             
             async function model_pred(x){
                 let input_x  = tf.tensor(x);
-                let output_y = await model.predict(input_x);
-                output_y     = await output_y.data;
-                output_y     = await Array.from(output_y);
+                let [output_y1, output_y2] = await model.predict(input_x);
+                output_y1     = await output_y1.data;
+                output_y2     = await output_y2.data;
+                output_y     = await Array.from([output_y1,output_y2]);
                 return output_y;
             }
-            model_pred().then(value=>{
-                console.log("Yes");
-            });
-            model_pred().catch(err=>{
-                console.log("No");
-            });   
+   
             const model = model_load();
             const camera_size = {w:256, h:256}; //カメラサイズを辞書で作成
             let   video       = document.createElement("video"); // <video></video>を作成
