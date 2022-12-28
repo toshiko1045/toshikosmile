@@ -40,9 +40,7 @@
             document.getElementById("canvasPreview").appendChild(canvas);//<canvasPreview><canvas></canvas></canvasPreview>
             let ctx = canvas.getContext("2d"); //canvasを2dグラフィックを描画するようにする
 
-            setInterval(()=>{
-                
-            }, 100)
+            
             def function run(){
                 ctx.drawImage(video, 0, 0, canvas.width, canvas.height);
                 let canvas_image = ctx.getImageData(0,0,canvas.width,canvas.height);
