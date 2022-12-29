@@ -38,7 +38,7 @@
             async function return_pred(x){
                 model.then(function(res){
                     let y = res.predict(x);
-                        return y;
+                    return y;
                 }).catch((err) => {
                     console.log(err);
                     return null;
