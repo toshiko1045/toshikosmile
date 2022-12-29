@@ -32,7 +32,7 @@
             
             async function return_pred(x){
                 model.then(function(res){
-                    let y = await res.predict(x);
+                    let y = res.predict(x);
                     console.log("yを表示");
                     console.log(y);
                     return y;
