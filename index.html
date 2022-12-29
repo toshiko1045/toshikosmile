@@ -27,7 +27,8 @@
             async function model_pred(x){
                 let input_x  = tf.tensor(x);
                 console.log(model);
-                let [output_y1, output_y2] = return_pred(input_x).arraySync();
+                let output_y = return_pred(input_x).arraySync();
+                console.log(typeof(output_y));
 //                 output_y1     = output_y1.data;
 //                 output_y2     = output_y2.data;
                 output_y      = Array.from([output_y1,output_y2]);
