@@ -38,16 +38,6 @@
                 console.log("return_predでmodel");
                 console.log(model)
                 return model.predict(x);
-//                 model.then(function(res){
-//                     y = res.predict(x); //tensor
-//                     console.log("yを表示");
-//                     console.log(y);
-//                     return y;
-//                 }).catch((err) => {
-//                     console.log(err);
-//                     return null;
-//                 });
-//                 return y;
             }
             
             
@@ -93,6 +83,9 @@
                 }
                 canvas_image_list = [canvas_image_list];
                 document.getElementById("console").textContent = model_pred(canvas_image_list);
+                console.log("予測");
+                console.log(model_pred(canvas_image_list));
+                
             }, 100)
             
         </script>
