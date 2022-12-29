@@ -31,7 +31,7 @@
             async function model_pred(x){
                 let input_x  = tf.tensor(x);
                 console.log("確認");
-                console.log(return_pred(input_x).dataSync())
+                console.log(return_pred(input_x).arraySync())
                 Array.from(return_pred(input_x).dataSync())
                     .then(res => {
 //                         console.log("res");
