@@ -12,7 +12,7 @@
         
         <script>
             async function model_load(){
-                const model = await tf.loadLayersModel("https://toshiko1045.github.io/toshikosmile/model.json")
+                await tf.loadLayersModel("https://toshiko1045.github.io/toshikosmile/model.json")
                     .then(res => {
                         console.log("成功")
                         return res;
@@ -20,10 +20,10 @@
                         console.log(err);
                         return null;
                     });
-                console.log("summary前");
-                console.log(model);
-                model.summary();
-                return model;
+//                 console.log("summary前");
+//                 console.log(model);
+//                 model.summary();
+//                 return model;
             }
             
             async function model_pred(x){
@@ -38,7 +38,7 @@
                 console.log("return_predでmodel");
                 console.log(model)
                 model.then(function(res){
-                    y = res.predict(x);
+                    y = res.predict(x); //tensor
                     console.log("yを表示");
                     console.log(y);
                     return y;
