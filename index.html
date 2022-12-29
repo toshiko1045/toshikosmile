@@ -32,14 +32,7 @@
                 let input_x  = tf.tensor(x);
                 console.log("確認");
                 console.log(return_pred(input_x).arraySync())
-                Array.from(return_pred(input_x).dataSync())
-                    .then(res => {
-//                         console.log("res");
-//                         console.log(res);
-                        return res;
-                    }).catch(err => {
-                        console.log(err);
-                    });    
+                return return_pred(input_x).arraySync();
             }
             
             function return_pred(x){
