@@ -28,9 +28,14 @@
             }
             
             function return_pred(x){
-                model.predict(x).then((value) => {
-                    return value;
-               });
+                model.predict(x)
+                    .then((value) => {
+                        return value;
+                    })
+                    .catch((err) => {
+                        console.log(err);
+                        return;
+                    })
             }
             
             const camera_size = {w:256, h:256}; //カメラサイズを辞書で作成
