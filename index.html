@@ -29,7 +29,8 @@
             function return_pred(x){
                 model.predict(x).then((value) => {
                     return value;
-               })
+               });
+            }
             
             const camera_size = {w:256, h:256}; //カメラサイズを辞書で作成
             let   video       = document.createElement("video"); // <video></video>を作成
