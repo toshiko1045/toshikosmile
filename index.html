@@ -33,7 +33,7 @@
             function return_pred(x){
                 let y;
                 model.then(function(res){
-                    let y = res.predict(x);
+                    y = res.predict(x);
                     console.log("yを表示");
                     console.log(y);
                     return y;
