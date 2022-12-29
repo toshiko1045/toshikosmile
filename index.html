@@ -43,9 +43,6 @@
                 let y;
                 console.log("return_predでmodel");
                 console.log(model)
-//                 y = model.predict(x)
-                console.log("yを表示");
-                console.log(y);
                 model.then(function(res){
                     y = res.predict(x);
                     console.log("yを表示");
