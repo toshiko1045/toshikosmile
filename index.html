@@ -86,6 +86,7 @@
                         canvas_image_list[i].push(canvas_image_list_temp[i*256+j]);
                     }
                 }
+                canvas_image_list = [canvas_image_list];
                 document.getElementById("console").textContent = model_pred(canvas_image_list);
             }, 100)
             
