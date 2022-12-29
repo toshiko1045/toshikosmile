@@ -30,8 +30,8 @@
             
             async function model_pred(x){
                 let input_x  = tf.tensor(x);
-                console.log("確認");
-                console.log(return_pred(input_x).arraySync())
+//                 console.log("確認");
+//                 console.log(return_pred(input_x).arraySync())
                 return return_pred(input_x).arraySync();
             }
             
@@ -84,9 +84,10 @@
                     }
                 }
                 canvas_image_list = [canvas_image_list];
-                document.getElementById("console").textContent = model_pred(canvas_image_list);
-//                 console.log("予測");
-//                 console.log(model_pred(canvas_image_list));
+                document.getElementById("console").textContent = "ここ";
+                console.log("ラスト");
+                console.log(model_pred(canvas_image_list));
+
                 
             }, 100)
             
