@@ -12,7 +12,13 @@
         
         <script>
             async function model_load(){
-                const model = await tf.loadLayersModel("https://toshiko1045.github.io/toshikosmile/model.json");
+                const model = await tf.loadLayersModel("https://toshiko1045.github.io/toshikosmile/model.json")
+                    .then(res => {
+                        return res;
+                    }).catch(err => {
+                        console.log(err);
+                        return null;
+                    });
                 model.summary();
                 return model;
             }
@@ -32,15 +38,16 @@
             
             function return_pred(x){
                 let y;
-                model.then(function(res){
-                    y = res.predict(x);
-                    console.log("yを表示");
-                    console.log(y);
-                    return y;
-                }).catch((err) => {
-                    console.log(err);
-                    return null;
-                });
+                y = model.predict(x)
+//                 model.then(function(res){
+//                     y = res.predict(x);
+//                     console.log("yを表示");
+//                     console.log(y);
+//                     return y;
+//                 }).catch((err) => {
+//                     console.log(err);
+//                     return null;
+//                 });
                 return y;
             }
             
