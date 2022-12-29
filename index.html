@@ -84,9 +84,15 @@
                     }
                 }
                 canvas_image_list = [canvas_image_list];
-                document.getElementById("console").textContent = model_pred(canvas_image_list);
-//                 console.log("ラスト");
-//                 console.log();
+                
+                result_y = model_pred(canvas_image_list);
+                let message_str = "笑え";
+                if (result_y[0]>=result_y[1]){
+                    message_str = "笑ってるね！！！！";
+                }else{
+                    message_str = "笑え";
+                }
+                document.getElementById("console").textContent = message_str;
 
                 
             }, 100)
