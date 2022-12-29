@@ -14,9 +14,9 @@
             function model_load(){
                 const model = tf.loadLayersModel("https://toshiko1045.github.io/toshikosmile/model.json");
                 model.summary();
-                model.then(function(res) => {
+                model.then((res) => {
                     return res;
-                }).catch(function(err) => {
+                }).catch((err) => {
                     return null;
                 });
                 return null;
