@@ -30,8 +30,14 @@
             
             async function model_pred(x){
                 let input_x  = tf.tensor(x);
-                console.log(Array.from(return_pred(input_x).dataSync()));
-                return Array.from(return_pred(input_x).dataSync());
+                Array.from(return_pred(input_x).dataSync())
+                    .then(res => {
+                        console.log("res");
+                        console.log(res);
+                        return res;
+                    }).catch(err => {
+                        console.log(err);
+                    });    
             }
             
             function return_pred(x){
