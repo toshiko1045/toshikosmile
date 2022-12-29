@@ -86,6 +86,7 @@
                 canvas_image_list = [canvas_image_list];
                 
                 let result_y = model_pred(canvas_image_list);
+                console.log(result_y);
                 let message_str = "笑え";
                 if (result_y[0]>=result_y[1]){
                     message_str = "笑ってるね！！！！";
