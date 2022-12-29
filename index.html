@@ -25,9 +25,7 @@
                 model.summary();
                 return model;
             }
-            const model = model_load();
-            console.log("load直後");
-            console.log(model);
+            
             async function model_pred(x){
                 let input_x  = tf.tensor(x);
                 console.log("modelを表示");
@@ -45,20 +43,24 @@
                 let y;
                 console.log("return_predでmodel");
                 console.log(model)
-                y = model.predict(x)
+//                 y = model.predict(x)
                 console.log("yを表示");
                 console.log(y);
-//                 model.then(function(res){
-//                     y = res.predict(x);
-//                     console.log("yを表示");
-//                     console.log(y);
-//                     return y;
-//                 }).catch((err) => {
-//                     console.log(err);
-//                     return null;
-//                 });
-                return y;
+                model.then(function(res){
+                    y = res.predict(x);
+                    console.log("yを表示");
+                    console.log(y);
+                    return y;
+                }).catch((err) => {
+                    console.log(err);
+                    return null;
+                });
+//                 return y;
             }
+            
+            const model = model_load();
+            console.log("load直後");
+            console.log(model);
             
             const camera_size = {w:256, h:256}; //カメラサイズを辞書で作成
             let   video       = document.createElement("video"); // <video></video>を作成
