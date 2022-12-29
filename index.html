@@ -30,8 +30,6 @@
             
             async function model_pred(x){
                 let input_x  = tf.tensor(x);
-                console.log("modelを表示");
-                console.log(model);
                 return Array.from(return_pred(input_x).dataSync());
             }
             
@@ -39,15 +37,16 @@
                 let y;
                 console.log("return_predでmodel");
                 console.log(model)
-                model.then(function(res){
-                    y = res.predict(x); //tensor
-                    console.log("yを表示");
-                    console.log(y);
-                    return y;
-                }).catch((err) => {
-                    console.log(err);
-                    return null;
-                });
+                return model.predict(x);
+//                 model.then(function(res){
+//                     y = res.predict(x); //tensor
+//                     console.log("yを表示");
+//                     console.log(y);
+//                     return y;
+//                 }).catch((err) => {
+//                     console.log(err);
+//                     return null;
+//                 });
 //                 return y;
             }
             
