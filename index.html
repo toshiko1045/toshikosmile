@@ -27,9 +27,14 @@
                 return output_y;
             }
             
-            async function return_pred(x){
-                let y = await model.predict(x)
-                return y;
+            function return_pred(x){
+                model.predict(x).then((res) => {
+                    return res;
+                }).catch((err) => {
+                    console.log(err);
+                    return null;
+                })
+                return null;
             }
             
             const camera_size = {w:256, h:256}; //カメラサイズを辞書で作成
