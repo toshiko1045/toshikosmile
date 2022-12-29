@@ -30,13 +30,19 @@
                 let input_x  = tf.tensor(x);
                 console.log("modelを表示");
                 console.log(model);
-                let output_y = return_pred(input_x);
-                console.log("output_yを表示");
-                console.log(output_y);
-                output_y = output_y.dataSync();
-                console.log(typeof(output_y));
-                output_y      = Array.from([output_y1,output_y2]);
-                return output_y;
+                let output_y = await return_pred(input_x)
+                    .then(res => {
+                        return Array.from(res.dataSync());
+                    }).catch(err => {
+                        console.log(err);
+                        return null;
+                    })
+//                 console.log("output_yを表示");
+//                 console.log(output_y);
+//                 output_y = output_y.dataSync();
+//                 console.log(typeof(output_y));
+//                 output_y      = Array.from([output_y1,output_y2]);
+//                 return output_y;
             }
             
             function return_pred(x){
