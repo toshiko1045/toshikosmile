@@ -14,13 +14,6 @@
             async function model_load(){
                 const model = await tf.loadLayersModel("https://toshiko1045.github.io/toshikosmile/model.json");
                 model.summary();
-//                 model.then(function(res){
-//                     return res;
-//                 }).catch(function(err){
-//                     console.log(err);
-//                     return null;
-//                 });
-//                 return null;
                 return model;
             }
             const model = model_load();
@@ -29,8 +22,6 @@
                 console.log(model);
                 let output_y = return_pred(input_x).dataSync();
                 console.log(typeof(output_y));
-//                 output_y1     = output_y1.data;
-//                 output_y2     = output_y2.data;
                 output_y      = Array.from([output_y1,output_y2]);
                 return output_y;
             }
@@ -38,14 +29,13 @@
             async function return_pred(x){
                 model.then(function(res){
                     let y = res.predict(x);
+                    console.log(y);
                     return y;
                 }).catch((err) => {
                     console.log(err);
                     return null;
                 });
                 return null;
-//                 let y = await model.predict(x);
-//                 return y;
             }
             
             const camera_size = {w:256, h:256}; //カメラサイズを辞書で作成
