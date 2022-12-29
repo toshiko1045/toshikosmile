@@ -19,7 +19,7 @@
             const model = model_load();
             async function model_pred(x){
                 let input_x  = tf.tensor(x);
-                console.log(model.predict);
+                console.log(model);
                 let [output_y1, output_y2] = model.predict(input_x);
                 output_y1     = output_y1.data;
                 output_y2     = output_y2.data;
