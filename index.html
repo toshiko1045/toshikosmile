@@ -11,16 +11,21 @@
         <div id="console">ここに表示</div>
         
         <script>
-            async function model_load(){
-                const model = await tf.loadLayersModel("https://toshiko1045.github.io/toshikosmile/model.json");
+            function model_load(){
+                const model = tf.loadLayersModel("https://toshiko1045.github.io/toshikosmile/model.json");
                 model.summary();
-                return model
+                model.then(function(res) => {
+                    return res;
+                }).catch(function(err) => {
+                    return null;
+                });
+                return null;
             }
             const model = model_load();
             async function model_pred(x){
                 let input_x  = tf.tensor(x);
                 console.log(model);
-                let [output_y1, output_y2] = model.predict(input_x).dataSync();
+                let [output_y1, output_y2] = return_pred(input_x).dataSync();
                 output_y1     = output_y1.data;
                 output_y2     = output_y2.data;
                 output_y      = Array.from([output_y1,output_y2]);
@@ -28,14 +33,8 @@
             }
             
             function return_pred(x){
-                model.predict(x)
-                    .then((value) => {
-                        return value;
-                    })
-                    .catch((err) => {
-                        console.log(err);
-                        return;
-                    })
+                let y = model.predict(x)
+                return y;
             }
             
             const camera_size = {w:256, h:256}; //カメラサイズを辞書で作成
