@@ -11,8 +11,13 @@
         <div id="console">ここに表示</div>
         
         <script>
+            let model;
+            model_load();
+            console.log("load直後");
+            console.log(model);
+            
             async function model_load(){
-                await tf.loadLayersModel("https://toshiko1045.github.io/toshikosmile/model.json")
+                model = await tf.loadLayersModel("https://toshiko1045.github.io/toshikosmile/model.json")
                     .then(res => {
                         console.log("成功")
                         console.log(res);
@@ -21,10 +26,6 @@
                         console.log(err);
                         return null;
                     });
-//                 console.log("summary前");
-//                 console.log(model);
-//                 model.summary();
-//                 return model;
             }
             
             async function model_pred(x){
@@ -50,9 +51,7 @@
 //                 return y;
             }
             
-            const model = model_load();
-            console.log("load直後");
-            console.log(model);
+            
             
             const camera_size = {w:256, h:256}; //カメラサイズを辞書で作成
             let   video       = document.createElement("video"); // <video></video>を作成
