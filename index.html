@@ -31,6 +31,7 @@
             }
             
             function return_pred(x){
+                let y;
                 model.then(function(res){
                     let y = res.predict(x);
                     console.log("yを表示");
@@ -40,7 +41,7 @@
                     console.log(err);
                     return null;
                 });
-                return null;
+                return y;
             }
             
             const camera_size = {w:256, h:256}; //カメラサイズを辞書で作成
