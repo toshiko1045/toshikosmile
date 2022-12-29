@@ -19,8 +19,10 @@
             const model = model_load();
             async function model_pred(x){
                 let input_x  = tf.tensor(x);
+                console.log("modelを表示");
                 console.log(model);
                 let output_y = return_pred(input_x);
+                console.log("output_yを表示");
                 console.log(output_y);
                 output_y = output_y.dataSync();
                 console.log(typeof(output_y));
@@ -31,6 +33,7 @@
             async function return_pred(x){
                 model.then(function(res){
                     let y = res.predict(x);
+                    console.log("yを表示");
                     console.log(y);
                     return y;
                 }).catch((err) => {
