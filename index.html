@@ -22,6 +22,7 @@
                 console.log(model);
                 let output_y = return_pred(input_x);
                 console.log(output_y);
+                output_y = output_y.dataSync();
                 console.log(typeof(output_y));
                 output_y      = Array.from([output_y1,output_y2]);
                 return output_y;
