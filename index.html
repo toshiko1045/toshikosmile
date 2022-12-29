@@ -14,9 +14,9 @@
             async function model_load(){
                 const model = await tf.loadLayersModel("https://toshiko1045.github.io/toshikosmile/model.json");
                 model.summary();
-                model.then((res) => {
+                model.then(function(res){
                     return res;
-                }).catch((err) => {
+                }).catch(function(err){
                     console.log(err);
                     return null;
                 });
