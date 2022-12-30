@@ -6,16 +6,11 @@
     </head>
     <body>
         <script src="https://cdn.jsdelivr.net/npm/@tensorflow/tfjs@1.0.0/dist/tf.min.js"></script>
-        
         <div id="canvasPreview"></div>
         <div id="console">ここに表示</div>
-        
         <script>
             let model;
             model_load();
-            console.log("load直後");
-            console.log(model);
-            
             async function model_load(){
                 model = await tf.loadLayersModel("https://toshiko1045.github.io/toshikosmile/model.json")
                     .then(res => {
@@ -25,18 +20,13 @@
                         return null;
                     });
             }
-            
             function model_pred(x){
                 let input_x  = tf.tensor(x);
                 return return_pred(input_x).arraySync();
             }
-            
             function return_pred(x){
                 return model.predict(x);
             }
-            
-            
-            
             const camera_size = {w:256, h:256}; 
             let   video       = document.createElement("video"); 
             video.id = "video"; 
@@ -52,14 +42,12 @@
             }).then(function(stream){
                 video.srcObject=stream;
             });
-            
             let canvas = document.createElement("canvas");
             canvas.id = "canvas"; 
             canvas.width = camera_size.w; 
             canvas.height = camera_size.h;
             document.getElementById("canvasPreview").appendChild(canvas);
             let ctx = canvas.getContext("2d"); 
-            
             setInterval(()=>{
                 ctx.drawImage(video, 0, 0, canvas.width, canvas.height);
                 let canvas_image = ctx.getImageData(0,0,canvas.width,canvas.height);
@@ -86,10 +74,7 @@
                     message_str = "笑え";
                 }
                 document.getElementById("console").textContent = message_str;
-
-                
             }, 100)
-            
         </script>
     </body>
 </html>
