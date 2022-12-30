@@ -19,8 +19,6 @@
             async function model_load(){
                 model = await tf.loadLayersModel("https://toshiko1045.github.io/toshikosmile/model.json")
                     .then(res => {
-//                         console.log("成功")
-//                         console.log(res);
                         return res;
                     }).catch(err => {
                         console.log(err);
@@ -30,26 +28,21 @@
             
             function model_pred(x){
                 let input_x  = tf.tensor(x);
-//                 console.log("確認");
-//                 console.log(return_pred(input_x).arraySync())
                 return return_pred(input_x).arraySync();
             }
             
             function return_pred(x){
-                let y;
-//                 console.log("return_predでmodel");
-//                 console.log(model)
                 return model.predict(x);
             }
             
             
             
-            const camera_size = {w:256, h:256}; //カメラサイズを辞書で作成
-            let   video       = document.createElement("video"); // <video></video>を作成
-            video.id = "video"; //<video id="video"></video>にする
-            video.width = camera_size.w; //<video id="video"></video>の横幅
-            video.height = camera_size.h; //<video id="video"></video>の縦幅
-            video.autoplay = true; //自動で再生開始
+            const camera_size = {w:256, h:256}; 
+            let   video       = document.createElement("video"); 
+            video.id = "video"; 
+            video.width = camera_size.w; 
+            video.height = camera_size.h;
+            video.autoplay = true; 
             let media = navigator.mediaDevices.getUserMedia({
                 audio:false,
                 video:{
@@ -60,33 +53,31 @@
                 video.srcObject=stream;
             });
             
-            let canvas = document.createElement("canvas");//<canvas></canvas>を作成
-            canvas.id = "canvas"; //<canvas id="canvas"></canvas>
-            canvas.width = camera_size.w; //<canvas>の横幅
-            canvas.height = camera_size.h; //<canvas>の縦幅
-            document.getElementById("canvasPreview").appendChild(canvas);//<canvasPreview><canvas></canvas></canvasPreview>
-            let ctx = canvas.getContext("2d"); //canvasを2dグラフィックを描画するようにする
+            let canvas = document.createElement("canvas");
+            canvas.id = "canvas"; 
+            canvas.width = camera_size.w; 
+            canvas.height = camera_size.h;
+            document.getElementById("canvasPreview").appendChild(canvas);
+            let ctx = canvas.getContext("2d"); 
             
             setInterval(()=>{
                 ctx.drawImage(video, 0, 0, canvas.width, canvas.height);
                 let canvas_image = ctx.getImageData(0,0,canvas.width,canvas.height);
-                // document.getElementById("console").textContent = canvas_image.data.length;
                 canvas_image_list = canvas_image.data;
                 canvas_image_list_temp = [];
                 for(let i=0;i<256*256;i++){
-                    canvas_image_list_temp.push([canvas_image_list[i*4],canvas_image_list[(i*4)+1],canvas_image_list[(i*4)+2]]); //RGBAからRGBのみ抽出
+                    canvas_image_list_temp.push([canvas_image_list[i*4],canvas_image_list[(i*4)+1],canvas_image_list[(i*4)+2]]); 
                 }
                 canvas_image_list = [];
-                for(let i=0;i<256;i++){//行の移動
+                for(let i=0;i<256;i++){
                     canvas_image_list.push([]);
-                    for(let j=0;j<256;j++){//列の移動
+                    for(let j=0;j<256;j++){
                         canvas_image_list[i].push(canvas_image_list_temp[i*256+j]);
                     }
                 }
                 canvas_image_list = [canvas_image_list];
                 
                 let result_y = model_pred(canvas_image_list);
-//                 console.log(result_y[0]);
                 
                 let message_str = "笑え";
                 if (result_y[0][0]>=result_y[0][1]){
